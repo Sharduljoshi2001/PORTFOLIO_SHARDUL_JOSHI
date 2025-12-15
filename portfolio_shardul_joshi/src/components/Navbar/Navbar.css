@@ -1,0 +1,405 @@
+/* Import Bitcount Grid Double - Modern Grid Font */
+@import url('https://fonts.googleapis.com/css2?family=Bitcount+Grid+Double:wght@100..900&display=swap');
+
+/* ==================== NAVBAR CONTAINER ==================== */
+.navbar {
+  /* Positioning */
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: calc(var(--z-navbar) + 1);  /* Above menu for proper stacking */
+  
+  /* Layout */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;  /* Prevent stretching on ultra-wide screens */
+  margin: 0 auto;     /* Center the navbar */
+  width: 100%;
+  
+  /* Generous Vertical Rhythm - Creates "Deliberate Header" Feel */
+  padding: var(--spacing-md) var(--spacing-lg);
+  
+  /* B&W Classic - Refined palette */
+  background: #ffffff;                    /* Pure white for navbar */
+  border-bottom: 1px solid #e0e0e0;      /* Subtle gray border - professional */
+  
+  /* Remove glassmorphism effects */
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  
+  /* Ultra-smooth transition for layout changes */
+  transition: justify-content 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Center navbar content when menu is open (mobile only) */
+@media (max-width: 767px) {
+  .navbar:has(.navbar__menu--open) {
+    justify-content: center;  /* Center logo when menu open */
+  }
+}
+/* ==================== LOGO ==================== */
+.navbar__logo-link {
+  /* Typography - Bitcount Grid Double (Modern Grid Font) */
+  font-size: 2rem;                       /* Larger grid-style presence */
+  font-weight: 700;                      /* Bold for strong presence */
+  font-family: "Bitcount Grid Double", system-ui;  /* Modern grid font */
+  font-optical-sizing: auto;
+  font-style: normal;
+  letter-spacing: 2px;                   /* Grid spacing for structure */
+  text-transform: uppercase;             /* Grid aesthetic */
+  
+  /* Variable Font Settings for Bitcount Grid Double */
+  font-variation-settings:
+    "slnt" 0,
+    "CRSV" 0.5,
+    "ELSH" 0,
+    "ELXP" 0;
+  
+  /* Color - Pure Black */
+  color: var(--color-text-primary);
+  
+  /* Spacing - Generous Whitespace for Prominence */
+  padding-right: var(--spacing-lg);      /* Breathing room from menu */
+  
+  /* Interaction */
+  transition: var(--transition-normal);
+  
+  /* Clean grid aesthetic - no shadow */
+  text-shadow: none;
+}
+
+/* Logo text wrapper - Isolates underline to text only */
+.navbar__logo-text {
+  position: relative;
+  display: inline-block;  /* CRITICAL: Makes underline match text width exactly */
+}
+
+/* Underline Animation - Simple Black Line (Only under text) */
+.navbar__logo-text::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: var(--border-medium);
+  background: var(--color-accent);  /* Pure black */
+  transition: var(--transition-normal);
+}
+
+.navbar__logo-link:hover {
+  color: var(--color-accent);
+  /* Remove scale - keep it subtle */
+}
+
+.navbar__logo-link:hover .navbar__logo-text::after {
+  width: 100%;  /* Expands to match text width exactly */
+}
+
+/* ==================== HAMBURGER BUTTON ==================== */
+.navbar__toggle {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  
+  /* Accessibility - Touch Targets */
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.navbar__toggle-bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: var(--color-text-primary);  /* Black bars */
+  border-radius: 0;  /* Sharp corners for B&W */
+  transition: var(--transition-fast);
+}
+
+.navbar__toggle:hover .navbar__toggle-bar {
+  background-color: var(--color-accent);  /* Darker on hover */
+}
+
+/* ==================== NAVIGATION MENU (FULL-SCREEN OVERLAY) ==================== */
+.navbar__menu {
+  /* Positioning - Full-screen overlay below navbar */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: auto;  /* Content-based height */
+  z-index: var(--z-navbar);  /* CRITICAL: Above overlay, stays bright */
+
+  /* Layout */
+  display: flex;
+  flex-direction: column;
+  align-items: center;  /* Center menu items horizontally */
+  gap: 0;
+  padding: var(--spacing-2xl) var(--spacing-md) var(--spacing-xl);  /* Extra top padding */
+
+  /* B&W Solid Background - Ultra-subtle professional palette */
+  background: #fcfcfc;  /* Almost white with warmth - more refined than #fafafa */
+  border-top: 1px solid #e8e8e8;  /* Very subtle border - whisper gray */
+  border-left: none;  /* Remove side border for full-screen look */
+  
+  /* Hidden State - Use opacity and visibility */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-30px);  /* Slightly more upward shift for smoother entry */
+  
+  /* Professional shadow - barely visible but adds depth */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04), 
+              0 2px 8px rgba(0, 0, 0, 0.02);  /* Layered soft shadows */
+  
+  /* Remove glassmorphism effects */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+    
+  /* Ultra-Smooth Animations - Maximum smoothness */
+  transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+              visibility 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+
+
+/* MENU ITEMS */
+.navbar__item {
+  width: 100%;
+}
+
+.navbar__link {
+  /* Make entire area clickable */
+  display: block;
+  padding: var(--spacing-sm) var(--spacing-md);
+  
+  /* Typography - Premium Classic Style */
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  text-align: center;  /* Center-aligned for mobile menu */
+  
+  /* Premium Touch: Uppercase + Letter Spacing */
+  text-transform: uppercase;
+  letter-spacing: 1.5px;  /* Makes text "breathe" - looks expensive */
+  
+  /* Visual - Sharp Corners */
+  border-radius: 0;
+  
+  /* Ultra-Smooth Transitions - Maximum butter smoothness */
+  transition: background-color 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+              color 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+              border-color 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  
+  /* Remove tap highlight on mobile */
+  -webkit-tap-highlight-color: transparent;
+  
+  /* Remove focus outline (we'll add custom one) */
+  outline: none;
+}
+
+/* Custom focus state for accessibility */
+.navbar__link:focus-visible {
+  outline: var(--border-medium) solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Mobile Hover - Ultra-Subtle Professional Inversion */
+.navbar__link:hover {
+  background: #f0f0f0;                    /* Soft gray - barely noticeable */
+  color: #1a1a1a;                         /* Dark gray instead of black */
+  transform: translateX(3px);             /* Minimal subtle movement */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);  /* Ultra-whisper shadow */
+}
+
+/* Active link style - Mobile */
+.navbar__link--active {
+  background: #f5f5f5;                    /* Very soft gray background */
+  color: #1a1a1a;                         /* Dark gray text */
+  border-left: 3px solid #2a2a2a;         /* Refined charcoal accent line */
+  font-weight: var(--font-weight-bold);   /* Emphasize active state */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);  /* Ultra-minimal depth */
+}
+
+/*  OVERLAY (Behind menu when open - Click to close) */
+
+.navbar__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(26, 26, 26, 0.35);  /* Subtle charcoal overlay - professional */
+  opacity: 0;
+  visibility: hidden;
+  z-index: calc(var(--z-navbar) - 10);  /* Below menu, above page content */
+  cursor: pointer;  /* Show it's clickable */
+  backdrop-filter: blur(4px) saturate(1.1);  /* Elegant blur with slight color boost */
+  -webkit-backdrop-filter: blur(4px) saturate(1.1);
+  
+  /* Ultra-Smooth fade animation */
+  transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+              visibility 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              backdrop-filter 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.navbar__overlay--active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Open State - Menu visible */
+.navbar__menu--open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);  /* Slide to normal position */
+  z-index: var(--z-navbar);  /* Ensure it stays on top */
+  
+  /* Professional elevation shadow - multi-layered */
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08), 
+              0 8px 24px rgba(0, 0, 0, 0.04),
+              0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+/* ==================== DESKTOP RESPONSIVENESS ==================== */
+/* Applies to screens 768px and wider */
+
+@media (min-width: 768px) {
+  
+  /* Step A: Hide hamburger button on desktop */
+  .navbar__toggle {
+    display: none;
+  }
+  
+  /* Step B: Reset menu from mobile drawer to horizontal layout */
+  .navbar__menu {
+    /* Positioning - Remove fixed positioning */
+    position: static;
+    right: auto;
+    top: auto;
+    width: auto;
+    height: auto;
+    max-width: none;
+    
+    /* Reset mobile hidden state */
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    
+    /* Layout - Horizontal instead of vertical */
+    flex-direction: row;
+    gap: 0;  /* No gap - borders will create separation */
+    align-items: center;
+    
+    /* Spacing - Reset mobile padding */
+    padding: 0;
+    
+    /* Visual - Remove drawer styling */
+    background: transparent;
+    border-left: none;
+    border-top: none;
+    
+    /* Remove glassmorphism */
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
+    
+    /* Animation - No slide transition needed */
+    transition: none;
+  }
+  
+  /* Step C: Adjust menu items for horizontal layout */
+  .navbar__item {
+    width: auto;  /* Let content determine width */
+    
+    /* Smart Borders - Separators between items */
+    border-right: var(--border-thin) solid var(--color-border-primary);
+  }
+  
+  /* Remove border from last item - Clean Right Edge */
+  .navbar__item:last-child {
+    border-right: none;
+  }
+  
+  .navbar__link {
+    /* Generous Padding for Desktop - Creates Breathing Room */
+    padding: var(--spacing-sm) var(--spacing-lg);
+    
+    /* Typography - Premium Desktop Style */
+    font-size: 0.875rem;                   /* Smaller, refined size */
+    font-weight: var(--font-weight-semibold);  /* Bolder for impact */
+    letter-spacing: 2px;                   /* More tracking = more premium */
+    text-transform: uppercase;             /* Maintain uppercase on desktop */
+    
+    /* Remove mobile borders */
+    border-left: none;
+    border-radius: 0;  /* Sharp corners */
+  }
+  
+  /* Desktop hover effect - Subtle Professional */
+  .navbar__link:hover {
+    background: #f0f0f0;                   /* Soft gray */
+    color: #1a1a1a;                        /* Dark gray */
+    transform: translateY(-1px);           /* Minimal lift effect */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);  /* Whisper shadow */
+  }
+  
+  /* Desktop active link - Subtle Underline */
+  .navbar__link--active {
+    background: transparent;
+    color: #1a1a1a;                        /* Dark gray text */
+    border-left: none;
+    border-bottom: var(--border-thick) solid #2a2a2a;  /* Refined charcoal */
+    font-weight: var(--font-weight-bold); /* Extra emphasis */
+  }
+  
+  /* Active link hover - Subtle Enhancement */
+  .navbar__link--active:hover {
+    background: #f5f5f5;                   /* Very soft gray */
+    color: #1a1a1a;                        /* Dark gray */
+    border-bottom-color: #2a2a2a;          /* Refined charcoal underline */
+    transform: translateY(-1px);           /* Minimal lift */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);  /* Whisper shadow */
+  }
+  
+  /* Hide overlay on desktop (not needed) */
+  .navbar__overlay {
+    display: none;
+  }
+  
+  /* Increase navbar padding on larger screens */
+  .navbar {
+    padding: var(--spacing-lg) var(--spacing-xl);
+  }
+  
+  .navbar__logo-link {
+    padding-right: var(--spacing-xl);  /* More space on desktop */
+  }
+}
+
+/* Optional: Extra large screens (1200px+) */
+@media (min-width: 1200px) {
+  .navbar {
+    padding: var(--spacing-xl) var(--spacing-2xl);  /* Generous padding */
+  }
+  
+  .navbar__logo-link {
+    font-size: 2.25rem;  /* Larger grid-style presence on big screens */
+    padding-right: var(--spacing-2xl);
+  }
+  
+  .navbar__link {
+    font-size: 0.9375rem;  /* Refined size on big screens */
+    padding: var(--spacing-sm) var(--spacing-xl);
+    letter-spacing: 2.5px;  /* Maximum tracking for premium feel */
+  }
+}

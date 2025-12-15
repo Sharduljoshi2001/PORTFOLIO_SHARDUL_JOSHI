@@ -1,0 +1,458 @@
+/* === FONT SYSTEM (Google Fonts) === */
+body {
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 400;
+}
+
+h1, h2, h3,
+.hero__title,
+.navbar__logo {
+  font-family: 'Space Grotesk', 'Inter', Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  font-optical-sizing: auto;
+}
+
+.hero__title--brush {
+  font-family: 'Caveat', cursive;
+  font-weight: 700;
+  font-size: 1.2em;
+  display: inline-block;
+}
+
+.hero__bio,
+.hero__greeting,
+.hero__badge,
+.hero__cta,
+.hero__badges {
+  font-family: 'Inter', Arial, sans-serif;
+  font-optical-sizing: auto;
+}
+
+.hero__persona {
+  font-family: 'Fira Mono', 'Courier New', Courier, monospace;
+  font-size: 0.9rem;
+  color: #000000;
+  line-height: 1.6;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Fun accent font (Honk) - use as needed */
+.honk-fun {
+  font-family: 'Honk', system-ui;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+    "MORF" 0,
+    "SHLN" 55.6;
+}
+
+.hero {
+  /* border: 2px solid black; played with the code for adjustment purpose's */
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  padding: var(--spacing-2xl);
+  background: radial-gradient(ellipse at 60% 40%, #f8fafc 70%, #e3e6eb 100%);
+}
+/* TEMP */
+/* .hero__content {
+  border: 2px solid black;
+} */
+.hero__image-wrapper {
+  display: flex;
+  height: 400px;
+  justify-content: center;
+  align-items: flex-start;
+
+  position: relative; /* This makes the wrapper a reference for absolute children */
+  z-index: 0;         /* Ensures stacking context for the pseudo-element */
+}
+
+.hero__image {
+  width: 100%;
+  height: auto;
+  display: block;
+
+  /* Morphing Blob - Resting State (Weight on RIGHT) */
+  border-radius: 50% 50% 70% 30% / 50% 50% 65% 35%;
+  filter: grayscale(100%);
+
+  /* Soft Halo and Background */
+  background: #f8f8f8; /* Or use var(--color-bg-secondary) if defined */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.10);
+  padding: 10px;
+  box-sizing: border-box;
+
+  /* Animation Physics (The Magic) */
+  transition: border-radius 0.6s ease-in-out, filter 0.6s ease-in-out, box-shadow 0.6s;
+}
+
+.hero__image:hover {
+  /* Morphing Blob - Hover State (Weight Shifts to LEFT) */
+  border-radius: 50% 50% 30% 70% / 50% 50% 35% 65%;
+  filter: grayscale(0%);
+}
+
+@media (min-width: 768px) {
+  .hero {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+  }
+  .hero__image-wrapper {
+    height: 100%;
+  }
+}
+
+/* ========================================
+   LEFT SIDE: CONTENT TYPOGRAPHY
+   ======================================== */
+
+.hero__title {
+  font-size: 3rem;
+  line-height: 1.2;
+  margin: 1rem 0 1.5rem 0;
+  color: #1a1a1a;
+}
+
+.hero__title--brush {
+  /* The Brush Font (Hand-drawn Feel) */
+  font-family: 'Caveat', cursive;
+  font-weight: 700;
+  font-size: 1.2em; /* 20% larger than parent */
+  
+  /* Enable Transforms/Animations (Future-proof) */
+  display: inline-block;
+  
+  /* Optional: Slight tilt for handwritten effect */
+  /* transform: rotate(-1deg); */
+}
+
+.hero__bio {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: #2a2a2a;
+  margin-bottom: 1.5rem;
+}
+
+/* Skill Badges Container (Flexbox Layout) */
+.hero__badges {
+  display: flex;
+  flex-wrap: wrap;     /* Wrap to new line when no space */
+  gap: 0.75rem;        /* Space between badges (12px) */
+  margin-bottom: 2rem; /* Space before CTA button */
+}
+
+/* Individual Badge (Pill Design) */
+.hero__badge {
+  /* Border + Transparent Background */
+  border: 1px solid #333;
+  background: transparent;
+  
+  /* Padding (Pill Shape) */
+  padding: 0.5rem 1rem;
+  
+  /* Typography (Small + Uppercase + Tracking) */
+  font-size: 0.875rem;      /* 14px (smaller than body) */
+  font-weight: 500;         /* Medium weight */
+  text-transform: uppercase;
+  letter-spacing: 0.05em;   /* Tracking for readability */
+  color: #1a1a1a;
+  
+  /* Smooth Transitions */
+  transition: all 0.3s ease;
+  
+  /* Cursor (Shows it's interactive) */
+  cursor: default;
+}
+
+/* Hover Effect (Color Invert) */
+.hero__badge:hover {
+  background: #1a1a1a;  /* Black fill */
+  color: #ffffff;       /* White text */
+  border-color: #1a1a1a; /* Match background */
+}
+
+/* CTA Button (Primary Action) */
+.hero__cta {
+  /* Display (Inline-block for transform control) */
+  display: inline-block;
+  
+  /* Size (Larger than badges) */
+  padding: 0.875rem 2rem;  /* 14px vertical, 32px horizontal */
+  
+  /* Background (Solid Fill) */
+  background: #1a1a1a;
+  color: #ffffff;
+  border: 2px solid #1a1a1a;
+  
+  /* Typography */
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-decoration: none;  /* Remove underline from <a> */
+  
+  /* Smooth Transitions */
+  transition: all 0.3s ease;
+  
+  /* Cursor */
+  cursor: pointer;
+}
+
+/* Hover Effect (Lift + Shadow) */
+.hero__cta:hover {
+  /* Lift Effect (5% larger) */
+  transform: scale(1.05);
+  
+  /* Depth Shadow */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  
+  /* Optional: Slight color shift for feedback */
+  background: #2a2a2a;
+  border-color: #2a2a2a;
+}
+
+/* Active State (Button Press) */
+.hero__cta:active {
+  transform: scale(0.98);  /* Shrink slightly (pressed feel) */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Content Container (Left-Aligned for Readability) */
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;  /* Left-align all children */
+  height: 100%;
+}
+
+/* Persona Line (Monospace Terminal Style) */
+.hero__persona {
+  /* Monospace Font Stack (Fallback Chain) */
+  font-family: 'Courier New', Courier, monospace;
+  
+  /* Typography (Subtle, Smaller) */
+  font-size: 0.9rem;      /* 14.4px (smaller than body) */
+  color: #000000;            /* Mid-gray (subtle, not competing with main content) */
+  line-height: 1.6;
+  
+  /* Spacing (Breathing Room) */
+  margin-top: 1.5rem;     /* Space from badges above */
+  margin-bottom: 1.5rem;  /* Space before CTA button */
+}
+
+/* Special Trekker Span (Hint of Interactivity) */
+.hero__persona--special {
+  /* Stand Out from Gray Text */
+  color: #141414;         /* Dark (almost black) */
+  
+  /* Visual Hint (Underline = Something Special) */
+  text-decoration: underline;
+  text-decoration-style: dotted; /* Dotted underline (subtle hint) */
+  text-underline-offset: 3px;    /* Space between text and underline */
+  
+  /* Cursor (Question Mark = "Hover for info") */
+  cursor: help;
+  
+  /* Future-proof for Tooltip */
+  position: relative;  /* Required for ::before/::after positioning in Phase C */
+}
+
+/* Tooltip - Text Bubble (::before) */
+.hero__persona--special::before {
+  /* Dynamic Content (Pulls from HTML data-tooltip attribute) */
+  content: attr(data-tooltip);
+  
+  /* Positioning (Above the text) */
+  position: absolute;
+  bottom: 100%;           /* Place above the span (100% = full height of span) */
+  left: 50%;              /* Center horizontally */
+  transform: translateX(-50%) translateY(-8px);  /* Center + lift up 8px */
+  
+  /* Sizing & Spacing */
+  padding: 0.5rem 0.75rem;
+  white-space: nowrap;    /* Keep text on one line */
+  
+  /* B&W Theme */
+  background: #1a1a1a;    /* Solid black */
+  color: #ffffff;         /* White text */
+  border-radius: 6px;     /* Rounded corners */
+  
+  /* Typography */
+  font-family: Inter, sans-serif;  /* Back to normal font (not monospace) */
+  font-size: 0.8rem;      /* Small (12.8px) */
+  font-weight: 500;
+  
+  /* Shadow (Depth) */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  
+  /* Hide by Default */
+  opacity: 0;
+  visibility: hidden;
+  
+  /* Animation (Smooth Fade + Float) */
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+  
+  /* Layer Above Content */
+  z-index: 1000;
+}
+
+/* Tooltip - Arrow (::after) */
+.hero__persona--special::after {
+  /* Empty content (required for pseudo-element) */
+  content: '';
+  
+  /* Positioning (Just below the tooltip box) */
+  position: absolute;
+  bottom: 100%;           /* Same as ::before (above span) */
+  left: 50%;              /* Center horizontally */
+  transform: translateX(-50%) translateY(2px);  /* Center + slight adjustment */
+  
+  /* CSS Border Hack (Triangle) */
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #1a1a1a;  /* Black triangle pointing DOWN */
+  
+  /* Hide by Default */
+  opacity: 0;
+  visibility: hidden;
+  
+  /* Animation (Same timing as ::before) */
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+  
+  /* Layer (Below tooltip box but above text) */
+  z-index: 999;
+}
+
+/* Show Tooltip on Hover */
+.hero__persona--special:hover::before,
+.hero__persona--special:hover::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);  /* Float up to final position */
+}
+
+/* Social Media Icons (Flex Container) */
+.hero__socials {
+  display: flex;
+  gap: 2rem;         /* Generous spacing between icons */
+  margin-top: 2.9rem;  /* Pushes to bottom of column */
+}
+
+/* Individual Social Icon */
+.hero__social {
+  /* Size & Spacing */
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.5rem;      /* 40px */
+  height: 2.5rem;     /* 40px */
+  
+  /* Background (Circle + Hover Effect) */
+  background: #fafafa;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+  
+  /* Typography (Icon Size) */
+  font-size: 1.125rem;  /* 18px */
+  color: #1a1a1a;
+  text-decoration: none; /* Remove underline from links */
+  position: relative;    /* Needed for tooltip positioning */
+}
+
+/* Hover Effect (Icon Color Shift) */
+.hero__social:hover {
+  color: #ffffff;       /* White color on hover */
+  background: #1a1a1a;  /* Dark background on hover */
+}
+
+/* Tooltip for Social Media Icons */
+.hero__social--tooltip::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 120%; /* Above the icon */
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  padding: 0.5rem 0.75rem;
+  white-space: nowrap;
+  background: #1a1a1a;
+  color: #fff;
+  border-radius: 6px;
+  font-family: Inter, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.hero__social--tooltip:hover::before {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Resume Link - Social Icon */
+.hero__social--resume {
+  /* Specific Styles for Resume Icon (if needed) */
+  /* Example: color, background, size adjustments */
+  color: #1a1a1a;
+  background: #fafafa;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  position: relative;
+  
+  /* Transition for hover effects */
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover Effect for Resume Icon */
+.hero__social--resume:hover {
+  background: #1a1a1a;
+  color: #ffffff;
+  transform: scale(1.05);
+}
+
+/* Tooltip for Resume Icon */
+.hero__social--resume::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 120%; /* Above the icon */
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  padding: 0.5rem 0.75rem;
+  white-space: nowrap;
+  background: #1a1a1a;
+  color: #fff;
+  border-radius: 6px;
+  font-family: Inter, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+/* Show Tooltip on Hover for Resume Icon */
+.hero__social--resume:hover::before {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}

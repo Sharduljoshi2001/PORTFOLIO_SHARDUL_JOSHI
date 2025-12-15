@@ -1,0 +1,145 @@
+
+/* Import Premium Fonts - Hero Section */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@400;500;600;700&display=swap');
+
+/* Your existing imports... */
+/* by default CSS uses box-sizing: content-box which means if we set width: 300px and add padding: 20px, the total width becomes 340px (300 + 20 + 20) this breaks layouts constantly
+box-sizing: border-box makes width: 300px include padding and borders, so it stays 300px total much more predictable
+margin: 0; padding: 0; removes browse */
+*,
+*::before,
+*::after{
+    box-sizing: border-box;
+    margin: 0;
+    padding:0;
+}
+/* 
+our navbar will use <ul> for the menu links, but we don't want bullet points
+<a> tags have default blue color and underlines—we'll style them ourself */
+ul,
+ol{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+    color: inherit;
+}
+/* we'll create a hamburger menu button later
+browsers add ugly default button styling (borders, backgrounds)
+cursor: pointer ensures it looks clickable
+font-family: inherit makes button text match the rest of our site */
+button{
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+/* ==================== CSS CUSTOM PROPERTIES (DESIGN TOKENS) ==================== */
+/* 
+Why Design Tokens?
+- Consistency: Same values across entire project
+- Maintainability: Change once, update everywhere
+- Theming: Easy to create Dark Mode later
+- Scalability: Add new colors/spacing without breaking existing code
+*/
+
+:root {
+  /* ==================== COLOR PALETTE (Black & White Classic) ==================== */
+  
+  /* Primary Colors - Soft Contrast for Digital Screens */
+  --color-bg-primary: #fafafa;      /* Off-white (softer than pure white) */
+  --color-bg-secondary: #ffffff;    /* Pure white for cards/overlays */
+  --color-text-primary: #1a1a1a;    /* Off-black (easier on eyes than #000) */
+  --color-text-secondary: #666666;  /* Medium gray for less important text */
+  
+  /* Accent & Interactive States */
+  --color-accent: #000000;          /* Pure black for emphasis */
+  --color-hover: #1a1a1a;           /* Dark for hover backgrounds */
+  --color-hover-text: #ffffff;      /* White text on dark hover */
+  
+  /* Borders - Key to Monochrome Design */
+  --color-border-primary: #e0e0e0;  /* Light gray - subtle separation */
+  --color-border-secondary: #cccccc; /* Medium gray - defined borders */
+  --color-border-accent: #1a1a1a;   /* Dark - strong emphasis */
+  
+  /* Border Widths - Consistent thickness system */
+  --border-thin: 1px;               /* Subtle dividers */
+  --border-medium: 1px;             /* Standard borders */
+  --border-thick: 3px;              /* Emphasis borders */
+  
+  /* ==================== SPACING SYSTEM (Generous for B&W) ==================== */
+  /* Monochrome relies on whitespace for hierarchy */
+  
+  --spacing-xs: 0.5rem;    /* 8px - Tight spacing */
+  --spacing-sm: 1rem;      /* 16px - Small gaps */
+  --spacing-md: 1.5rem;    /* 24px - Medium spacing */
+  --spacing-lg: 2.5rem;    /* 40px - Large breathing room */
+  --spacing-xl: 4rem;      /* 64px - Extra large sections */
+  --spacing-2xl: 6rem;     /* 96px - Generous whitespace */
+  
+  /* ==================== TYPOGRAPHY ==================== */
+  
+  /* Font Families */
+  --font-serif: 'Georgia', 'Times New Roman', serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Arial', sans-serif;
+  --font-mono: 'Courier New', 'Monaco', monospace;
+  
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* Line Heights - Better readability */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.6;
+  --line-height-relaxed: 1.8;
+  
+  /* ==================== TRANSITIONS ==================== */
+  
+  --transition-fast: 0.15s ease-in-out;
+  --transition-normal: 0.3s ease-in-out;
+  --transition-slow: 0.5s ease-in-out;
+  
+  /* ==================== Z-INDEX MANAGEMENT ==================== */
+  
+  --z-base: 1;
+  --z-navbar: 1000;
+  --z-dropdown: 1100;
+  --z-overlay: 1200;
+  --z-modal: 1300;
+}
+/* ==================== BASE STYLES ==================== */
+
+body {
+  /* Typography */
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: var(--line-height-normal);
+  color: var(--color-text-primary);
+  
+  /* Visual */
+  background: var(--color-bg-primary);  /* Solid off-white (no gradient) */
+  min-height: 100vh;
+  
+  /* Rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+  /* Layout */
+  overflow-x: hidden;  /* Prevent horizontal scroll */
+}
+/* ==================== ACCESSIBILITY ==================== */
+
+*:focus-visible {
+  outline: var(--border-medium) solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ==================== SELECTION STYLES ==================== */
+/* Highlight color when user selects text */
+
+::selection {
+  background: var(--color-text-primary);
+  color: var(--color-bg-primary);
+}
