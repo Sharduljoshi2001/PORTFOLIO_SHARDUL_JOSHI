@@ -1,176 +1,472 @@
+/* ============================================================
+   PROJECTS — curated first, everything else on request.
+   Header: intro + language chips on the left, the orbit map on the
+   right (stacks under the intro below 1000px; the page hides it on phones).
+   "Selected work": three hand-picked cards from src/data/featuredProjects.js.
+   "List all repositories": one button that unfolds a hairline card grid.
+   Same voice as the hero: mono greeting, Space Grotesk headings, hairlines,
+   restrained hover (border darkens, arrow appears — no invert, no zoom).
+   ============================================================ */
+
 .projects {
-  background: #fff;
-  color: #111;
-  min-height: 100vh;
-  padding: 3rem 1.5rem;
-  display: flex;
-  flex-direction: column;
+  min-height: calc(100vh - var(--nav-height));
+  min-height: calc(100dvh - var(--nav-height));
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2.5rem clamp(1.5rem, 6vw, 6rem) 5rem;
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+}
+
+/* ==================== HEADER ==================== */
+.projects__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(380px, 520px);
+  gap: 1rem 4rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.projects__greeting {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+  margin-bottom: 0.7rem;
+}
+
+.projects__prompt {
+  color: var(--color-border-secondary);
+  margin-right: 0.3em;
 }
 
 .projects__title {
-  font-family: 'Space Grotesk', 'Inter', Arial, sans-serif;
-  font-size: 2.7rem;
-  font-weight: 800;
-  margin-bottom: 0.5rem;
-  color: #111;
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 3.4vw, 3rem);
+  font-weight: 700;
   letter-spacing: -0.02em;
-  text-align: left;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  line-height: 1.05;
+  margin-bottom: 0.7rem;
 }
 
-.projects__subtitle {
-  font-family: 'Inter', Arial, sans-serif;
-  font-size: 1.18rem;
-  color: #444;
-  margin-bottom: 2.2rem;
-  text-align: left;
-  max-width: 700px;
-  opacity: 0.85;
+.projects__sub {
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  max-width: 52ch;
+  margin-bottom: 1rem;
 }
 
-.projects__scroller {
+.projects__count {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+  min-height: 1.2em;
+  margin-bottom: 1.6rem;
+}
+
+.projects__rule {
+  height: 1px;
+  background: var(--color-border-primary);
+  margin: 1.2rem 0 2rem;
+}
+
+/* keeps the header steady while the orbit code loads */
+.orbit--placeholder {
+  aspect-ratio: 1.15 / 1;
+  min-height: 320px;
+}
+
+/* ==================== LANGUAGE CHIPS ==================== */
+/* The filter for the list, and the legend for the orbit map */
+.projects__chips {
   display: flex;
-  gap: 2.5rem;
-  overflow-x: auto;
-  padding-bottom: 2rem;
-  scrollbar-width: thin;
-  scrollbar-color: #bbb #f8f8f8;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  margin-left: -1rem;
-  margin-right: -1rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
-.projects__repo {
-  flex: 0 0 340px;
-  background: #f8f8f8;
-  border: 2px solid #222;
-  border-radius: 1.5rem;
-  padding: 2.2rem 1.7rem 1.7rem 1.7rem;
-  font-family: 'Fira Mono', 'Courier New', Courier, monospace;
-  font-size: 1.1rem;
-  color: #111;
-  text-decoration: none;
-  transition: background 0.25s, color 0.25s, border 0.25s, box-shadow 0.25s, transform 0.25s;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.10), 0 1.5px 6px rgba(0,0,0,0.04);
+.projects__chip {
+  border: 1px solid var(--color-border-secondary);
+  border-radius: 999px;
+  padding: 0.36rem 0.85rem;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  background: var(--color-bg-secondary);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.projects__chip small {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--color-text-muted);
+  margin-left: 0.45em;
+}
+
+.projects__chip:hover {
+  background: var(--color-bg-subtle);
+}
+
+.projects__chip--on {
+  background: var(--color-hover);
+  color: var(--color-hover-text);
+  border-color: var(--color-hover);
+}
+
+.projects__chip--on small {
+  color: var(--color-border-secondary);
+}
+
+/* ==================== SECTION HEADINGS ==================== */
+.projects__sec {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.1rem;
+}
+
+.projects__sec-title {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.projects__sec-note {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--color-text-muted);
+}
+
+/* ==================== SELECTED WORK ==================== */
+.projects__featured {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: 2.6rem;
+}
+
+.projects__fcard {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  scroll-snap-align: start;
-  position: relative;
-  min-height: 200px;
-  opacity: 0;
-  animation: fadeInUp 0.7s cubic-bezier(.23,1.02,.32,1) forwards;
+  gap: 0.85rem;
+  padding: 1.6rem 1.6rem 1.3rem;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: 14px;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.projects__repo--fade {
-  /* Animation delay set inline for staggered effect */
+.projects__fcard:hover {
+  border-color: var(--color-border-secondary);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(32px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+.projects__fidx {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
 }
 
-.projects__repo:hover {
-  background: #111;
-  color: #fff;
-  border-color: #111;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-  transform: translateY(-6px) scale(1.03);
-  z-index: 2;
-}
-
-.projects__repo-name {
-  font-family: 'Space Grotesk', 'Inter', Arial, sans-serif;
-  font-size: 1.45rem;
-  font-weight: 800;
-  margin-bottom: 0.7rem;
-  color: inherit;
-  letter-spacing: -0.02em;
-  text-transform: capitalize;
-  text-shadow: 0 1px 4px rgba(0,0,0,0.06);
+.projects__ftitle {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   line-height: 1.2;
 }
 
-.projects__repo-desc {
-  font-family: 'Inter', Arial, sans-serif;
-  font-size: 1.08rem;
-  color: #333;
-  margin-bottom: 1.1rem;
+.projects__frepo {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--color-text-muted);
+  margin-top: -0.4rem;
+}
+
+.projects__fdesc {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
   line-height: 1.6;
-  opacity: 0.92;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.03);
-  transition: color 0.25s, opacity 0.25s;
+  color: var(--color-text-secondary);
 }
 
-.projects__repo:hover .projects__repo-desc {
-  color: #eaeaea;
-  opacity: 1;
-}
-
-.projects__repo-meta {
+.projects__tags {
   display: flex;
-  gap: 1.2rem;
-  align-items: center;
-  font-family: 'Fira Mono', 'Courier New', Courier, monospace;
-  font-size: 0.98rem;
-  color: #444;
-  opacity: 0.85;
-  margin-top: auto;
   flex-wrap: wrap;
+  gap: 0.4rem;
 }
 
-.projects__repo-meta svg {
-  margin-right: 0.3em;
-  font-size: 1.1em;
-  vertical-align: middle;
+.projects__tag {
+  border: 1px solid var(--color-border-secondary);
+  border-radius: 999px;
+  padding: 0.25rem 0.65rem;
+  font-family: var(--font-display);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--color-bg-primary);
 }
 
-.projects__repo-stars {
+.projects__flinks {
+  margin-top: auto;
+  display: flex;
+  gap: 1.4rem;
+  border-top: 1px solid var(--color-border-primary);
+}
+
+.projects__flink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding-top: 0.85rem;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.projects__flink svg {
+  font-size: 0.85rem;
+}
+
+.projects__flink:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* ==================== ALL REPOSITORIES ==================== */
+/* one outlined button on a hairline rule … */
+.projects__allbar {
   display: flex;
   align-items: center;
-  gap: 0.2em;
+  gap: 1.4rem;
+  margin-bottom: 0.5rem;
 }
 
-.projects__repo-lang {
+.projects__allbar::before,
+.projects__allbar::after {
+  content: "";
+  flex: 1 1 0;
+  height: 1px;
+  background: var(--color-border-primary);
+}
+
+.projects__allbtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--color-border-accent);
+  background: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+  font-family: var(--font-display);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.projects__allbtn svg {
+  font-size: 0.95rem;
+  transition: transform 0.35s ease;
+}
+
+.projects__allbtn:hover {
+  background: var(--color-hover);
+  color: var(--color-hover-text);
+}
+
+.projects__allbtn--open svg {
+  transform: rotate(180deg);
+}
+
+/* … that unfolds the grid. Animating grid rows 0fr → 1fr is the one height
+   animation CSS can do without measuring in JS. */
+.projects__all {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.projects__all--open {
+  grid-template-rows: 1fr;
+}
+
+.projects__all-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.projects__all-pad {
+  padding-top: 1.6rem;
+}
+
+.projects__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.projects__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  min-height: 160px;
+  padding: 1.25rem 1.35rem 1.15rem;
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: 12px;
+  color: var(--color-text-primary);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* cards fade up one after another when the list unfolds (delay set inline) */
+.projects__all--open .projects__card {
+  animation: projects-card-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+
+@keyframes projects-card-in {
+  to { opacity: 1; transform: none; }
+}
+
+.projects__card:hover,
+.projects__card--lit {
+  border-color: var(--color-border-secondary);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.06);
+}
+
+/* lit from the orbit map: a firmer edge so the eye finds it */
+.projects__card--lit {
+  border-color: var(--color-border-accent);
+}
+
+.projects__cidx {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  color: var(--color-border-secondary);
+}
+
+.projects__cname {
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  font-weight: 500;
+  padding-right: 1.6rem;
+  overflow-wrap: anywhere;
+}
+
+.projects__carrow {
+  position: absolute;
+  top: 1.1rem;
+  right: 1.15rem;
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  opacity: 0;
+  transform: translate(-4px, 4px);
+  transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s ease;
+}
+
+.projects__card:hover .projects__carrow {
+  opacity: 1;
+  transform: none;
+  color: var(--color-text-primary);
+}
+
+.projects__cdesc {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.projects__cdesc--none {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--color-text-muted);
+}
+
+.projects__cmeta {
+  margin-top: auto;
   display: flex;
   align-items: center;
-  gap: 0.2em;
+  gap: 0.9rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  color: var(--color-text-muted);
 }
 
-.projects__repo-updated {
-  font-size: 0.93em;
-  color: #888;
-  font-family: 'Inter', Arial, sans-serif;
-  margin-left: 0.2em;
+.projects__clang::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-text-primary);
+  margin-right: 0.5em;
+  vertical-align: 0.05em;
 }
 
-.projects__loading, .projects__error {
-  font-family: 'Fira Mono', 'Courier New', Courier, monospace;
-  font-size: 1.1rem;
-  color: #888;
-  margin-bottom: 2rem;
+.projects__cdate {
+  margin-left: auto;
 }
 
-.projects__scroller::-webkit-scrollbar {
-  height: 8px;
+/* ==================== RESPONSIVE ==================== */
+@media (min-width: 1500px) {
+  .projects__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
-.projects__scroller::-webkit-scrollbar-thumb {
-  background: #bbb;
-  border-radius: 4px;
+
+@media (max-width: 1100px) {
+  .projects__featured,
+  .projects__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
-.projects__scroller::-webkit-scrollbar-track {
-  background: #f8f8f8;
+
+@media (max-width: 1000px) {
+  .projects__head { grid-template-columns: 1fr; }
+  .orbit--placeholder { width: min(100%, 520px); margin: 0 auto; }
+}
+
+@media (max-width: 700px) {
+  .projects__featured { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .projects__grid { grid-template-columns: 1fr; }
+  .projects { padding-bottom: 4rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .projects__card,
+  .projects__all--open .projects__card {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .projects__all { transition: none; }
+  .projects__allbtn svg { transition: none; }
 }

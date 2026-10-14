@@ -1,0 +1,19 @@
+/* The beacon layer sits ABOVE the frosted card; click-through.
+   Hidden until the beacon has something to draw (the component flips
+   visibility itself), so the layer can never show as a dark patch. */
+.form-beacon {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.form-beacon canvas {
+  display: block;
+}
+
+/* Safety net: whatever the 3D library puts inside this layer, nothing in it may catch the mouse. */
+.form-beacon * {
+  pointer-events: none !important;
+}

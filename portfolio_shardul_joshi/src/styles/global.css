@@ -1,8 +1,9 @@
 
-/* Import Premium Fonts - Hero Section */
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@400;500;600;700&display=swap');
-
-/* Your existing imports... */
+/* ==================== FONTS ====================
+   All web fonts load once in index.html <head> (with preconnect) instead of
+   a CSS @import, so they download in parallel and don't block this stylesheet.
+   Families in use: Playfair Display (the name), Space Grotesk (headings),
+   Inter (body), Fira Mono (meta + the terminal logo). */
 /* by default CSS uses box-sizing: content-box which means if we set width: 300px and add padding: 20px, the total width becomes 340px (300 + 20 + 20) this breaks layouts constantly
 box-sizing: border-box makes width: 300px include padding and borders, so it stays 300px total much more predictable
 margin: 0; padding: 0; removes browse */
@@ -48,18 +49,30 @@ Why Design Tokens?
   
   /* Primary Colors - Soft Contrast for Digital Screens */
   --color-bg-primary: #fafafa;      /* Off-white (softer than pure white) */
-  --color-bg-secondary: #ffffff;    /* Pure white for cards/overlays */
+  --color-bg-secondary: #ffffff;    /* Surface — cards, nav, inputs */
+  --color-bg-subtle: #f4f4f4;       /* Mist — subtle fills, hover */
   --color-text-primary: #1a1a1a;    /* Off-black (easier on eyes than #000) */
-  --color-text-secondary: #666666;  /* Medium gray for less important text */
+  --color-text-secondary: #555555;  /* Graphite — secondary / supporting text */
+  --color-text-muted: #8a8a8a;      /* Mute — meta / tiny text */
   
   /* Accent & Interactive States */
   --color-accent: #000000;          /* Pure black for emphasis */
   --color-hover: #1a1a1a;           /* Dark for hover backgrounds */
   --color-hover-text: #ffffff;      /* White text on dark hover */
+
+  /* The ONE colour on the site: the cloud-lightning beacon (hero, orbit map,
+     contact card) and the words it speaks. Nothing else may use it. Mirrored
+     as ORANGE in src/components/Cloud/beacon.js for the canvas drawing. */
+  --color-beacon: #F38020;
+
+  /* Frosted glass (the Contact card over the wind map) */
+  --color-glass: rgba(255, 255, 255, 0.78);        /* the card */
+  --color-glass-input: rgba(255, 255, 255, 0.72);  /* fields on the card */
+  --color-glass-light: rgba(255, 255, 255, 0.85);  /* the light that follows the cursor */
   
   /* Borders - Key to Monochrome Design */
-  --color-border-primary: #e0e0e0;  /* Light gray - subtle separation */
-  --color-border-secondary: #cccccc; /* Medium gray - defined borders */
+  --color-border-primary: #e6e6e6;  /* Line — default thin borders */
+  --color-border-secondary: #cfcfcf; /* Line+ — stronger borders */
   --color-border-accent: #1a1a1a;   /* Dark - strong emphasis */
   
   /* Border Widths - Consistent thickness system */
@@ -79,10 +92,11 @@ Why Design Tokens?
   
   /* ==================== TYPOGRAPHY ==================== */
   
-  /* Font Families */
-  --font-serif: 'Georgia', 'Times New Roman', serif;
-  --font-sans: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Arial', sans-serif;
-  --font-mono: 'Courier New', 'Monaco', monospace;
+  /* Font Families — one source of truth; pages should reference these tokens */
+  --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;  /* headings */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Arial', sans-serif;  /* body */
+  --font-serif: 'Playfair Display', 'Georgia', 'Times New Roman', serif;  /* the name — one elegant moment */
+  --font-mono: 'Fira Mono', 'Courier New', 'Monaco', monospace;  /* meta / labels / terminal logo */
   
   /* Font Weights */
   --font-weight-normal: 400;
@@ -102,12 +116,20 @@ Why Design Tokens?
   --transition-slow: 0.5s ease-in-out;
   
   /* ==================== Z-INDEX MANAGEMENT ==================== */
-  
+
   --z-base: 1;
   --z-navbar: 1000;
   --z-dropdown: 1100;
   --z-overlay: 1200;
   --z-modal: 1300;
+
+  /* ==================== LAYOUT ==================== */
+
+  /* Height of the sticky island nav (1rem padding above + below + ~57px island).
+     The hero subtracts this from the viewport so the home page fills the screen
+     exactly, instead of scrolling by one nav-height for nothing. If the nav's
+     padding or button sizes change, re-measure and update this. */
+  --nav-height: 5.55rem;
 }
 /* ==================== BASE STYLES ==================== */
 

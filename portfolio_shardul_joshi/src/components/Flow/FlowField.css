@@ -1,0 +1,10 @@
+/* The wind map fills the stage behind the content. */
+.flow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.flow canvas {
+  display: block;
+}
