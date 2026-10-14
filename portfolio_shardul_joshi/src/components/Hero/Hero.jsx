@@ -3,6 +3,7 @@ import { lazy, Suspense } from 'react';
 import { FiGithub, FiLinkedin, FiMail, FiDownload } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import profilePhoto from '../../assets/images/photoFront.jpg';
+import { PROFILE } from '../../data/profile';
 
 // Lazy-loaded so the three.js bundle only downloads on the home page.
 const CloudBackground = lazy(() => import('../Cloud/CloudBackground'));
@@ -69,7 +70,7 @@ export default function Hero() {
 
           <div className="hero__socials">
             <a
-              href="https://github.com/Sharduljoshi2001"
+              href={PROFILE.github}
               className="hero__social"
               target="_blank"
               rel="noopener noreferrer"
@@ -78,7 +79,7 @@ export default function Hero() {
               <FiGithub />
             </a>
             <a
-              href="https://www.linkedin.com/in/shardul-joshi-558137222/"
+              href={PROFILE.linkedin}
               className="hero__social"
               target="_blank"
               rel="noopener noreferrer"
@@ -87,7 +88,7 @@ export default function Hero() {
               <FiLinkedin />
             </a>
             <a
-              href="mailto:sharduljoshi2001@gmail.com"
+              href={`mailto:${PROFILE.email}`}
               className="hero__social"
               aria-label="Email"
             >
@@ -124,7 +125,7 @@ export default function Hero() {
           <div className="hero__actions">
             <Link to="/contact" className="hero__cta">Let's Connect</Link>
             <a
-              href="/ATS_Shardul.pdf"
+              href={PROFILE.resume}
               target="_blank"
               rel="noopener noreferrer"
               className="hero__cta hero__cta--ghost"
