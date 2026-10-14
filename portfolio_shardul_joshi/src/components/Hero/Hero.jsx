@@ -5,8 +5,9 @@ import { Link } from 'react-router-dom';
 import profilePhoto from '../../assets/images/photoFront.jpg';
 import { PROFILE } from '../../data/profile';
 
-// Lazy-loaded so the three.js bundle only downloads on the home page.
+// Lazy-loaded so the three.js bundles only download on the home page.
 const CloudBackground = lazy(() => import('../Cloud/CloudBackground'));
+const Watch = lazy(() => import('../Watch/Watch'));
 
 // DevOps / backend first, frontend last — the order tells the story.
 const BADGES = [
@@ -47,8 +48,18 @@ export default function Hero() {
         <span className="hero__corner hero__corner--br">{CORNER_LABELS.br}</span>
       </div>
 
-      {/* The cloud beacon floats in front of everything, click-through
-          (null fallback = nothing shows while it loads) */}
+      {/* Watch layer — the biometric scan on the photo + the satellite
+          flyby arc behind it. Click-through. Lives BEHIND the content so
+          the arc shows wrapping around the photo and the photo HTML
+          masks the arc's inner region. */}
+      <div className="hero__watch" aria-hidden="true">
+        <Suspense fallback={null}>
+          <Watch />
+        </Suspense>
+      </div>
+
+      {/* Cloud beacon layer — the orange cloud-lightning mark with status
+          quotes. Floats IN FRONT of everything, click-through. */}
       <div className="hero__cloud" aria-hidden="true">
         <Suspense fallback={null}>
           <CloudBackground />
@@ -61,11 +72,13 @@ export default function Hero() {
             the socials can drop to the bottom of the centred stack. */}
         <div className="hero__aside">
           <div className="hero__photo-wrap">
-            <img
-              src={profilePhoto}
-              alt="Shardul Joshi"
-              className="hero__photo"
-            />
+            <div className="hero__photo-mask">
+              <img
+                src={profilePhoto}
+                alt="Shardul Joshi"
+                className="hero__photo"
+              />
+            </div>
           </div>
 
           <div className="hero__socials">

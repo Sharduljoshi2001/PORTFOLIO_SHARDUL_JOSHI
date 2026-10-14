@@ -65,13 +65,29 @@
 .hero__corner--bl { bottom: -0.6em; left: 1.6rem; }
 .hero__corner--br { bottom: -0.6em; right: 1.6rem; }
 
-/* ==================== CLOUD LAYER ==================== */
-/* The three.js beacon floats IN FRONT of the content (z-index 2 > .hero__inner's 1)
+/* ==================== WATCH LAYER (scan + satellite flyby) ==================== */
+/* The three.js flyby arc + satellite dot live BEHIND the content (z-index 1
+   < .hero__inner's 2) so the arc shows wrapping around the photo and
+   the photo HTML masks the arc's inner region. The scan bar itself is a
+   DOM element inside .hero__photo-mask — Watch.jsx just animates its
+   top + opacity each frame. */
+.hero__watch {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.hero__watch * {
+  pointer-events: none !important;
+}
+
+/* ==================== CLOUD LAYER (beacon) ==================== */
+/* The three.js beacon floats IN FRONT of the content (z-index 3 > .hero__inner's 2)
    and is click-through. Its spots are at the hero's edges, clear of the text. */
 .hero__cloud {
   position: absolute;
   inset: 0;
-  z-index: 2;
+  z-index: 3;
   pointer-events: none;
 }
 
@@ -84,7 +100,7 @@
 /* ==================== CONTENT ==================== */
 .hero__inner {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -109,24 +125,36 @@
   margin-bottom: 1.8rem;
 }
 
-.hero__photo {
+/* The MASK is the circular container that CLIPS the scan bar to the
+   photo's bounds. All the styling that used to live on .hero__photo
+   (border, shadow, radius) is here now so the inside stays clipped
+   while the shadow still draws outside. */
+.hero__photo-mask {
+  position: relative;
   width: 128px;
   height: 128px;
   border-radius: 50%;
-  object-fit: cover;
-  object-position: top center;
-  filter: grayscale(100%);
+  overflow: hidden;
   background: var(--color-bg-subtle);
   border: 1px solid var(--color-border-primary);
-  /* Thin white "ring" + soft shadow so it sits inside the scene */
   box-shadow: 0 0 0 6px var(--color-bg-secondary), 0 12px 30px rgba(0, 0, 0, 0.14);
   transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-.hero__photo:hover {
+.hero__photo-mask:hover {
   transform: translateY(-3px);
   box-shadow: 0 0 0 6px var(--color-bg-secondary), 0 16px 38px rgba(0, 0, 0, 0.18);
 }
+
+.hero__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  filter: grayscale(100%);
+  display: block;
+}
+
 
 /* ==================== GREETING (terminal) ==================== */
 .hero__greeting {
@@ -327,13 +355,13 @@
 
   .hero__photo-wrap { margin: 0; }
 
-  .hero__photo {
+  .hero__photo-mask {
     width: clamp(220px, 17vw, 300px);
     height: clamp(220px, 17vw, 300px);
     box-shadow: 0 0 0 10px var(--color-bg-secondary), 0 24px 60px rgba(0, 0, 0, 0.14);
   }
 
-  .hero__photo:hover {
+  .hero__photo-mask:hover {
     box-shadow: 0 0 0 10px var(--color-bg-secondary), 0 28px 66px rgba(0, 0, 0, 0.18);
   }
 
